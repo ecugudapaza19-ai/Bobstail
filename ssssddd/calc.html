@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Калькулятор курьера</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+    body {
+        background: url('img/new-bg.png') no-repeat center center fixed;
+        background-size: cover;
+    }
+    .back-btn {
+        position: absolute;
+        top: 30px;
+        left: 30px;
+        z-index: 20;
+        display: block;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .back-img {
+        display: block;
+        width: 130px;
+        height: auto;
+        transition: transform .15s;
+    }
+    .back-btn:hover .back-img {
+        transform: scale(1.07) rotate(-1.5deg);
+        filter: brightness(1.13);
+    }
+    @media (max-width: 600px) {
+        .back-img { width: 70px; }
+    }
+    .calc-wrap {
+        background: rgba(255,255,255,0.08);
+        border-radius: 28px;
+        box-shadow: 0 3px 32px #0007;
+        margin: 80px auto 0;
+        max-width: 410px;
+        padding: 40px 30px 28px;
+        color: #fff;
+        text-align: center;
+    }
+    .calc-wrap label, .calc-wrap select {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+        display: block;
+    }
+    .calc-wrap select {
+        margin: 10px auto;
+        width: 85%;
+        font-size: 1.2em;
+        padding: 4px 6px;
+        border-radius: 9px;
+        border: none;
+        background: #e8e8e899;
+    }
+    .calc-wrap button {
+        margin-top: 20px;
+        font-size: 1.2em;
+        padding: 10px 44px;
+        background: #59b84f;
+        border: none;
+        border-radius: 11px;
+        color: #fff;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background .17s;
+        box-shadow: 0 3px 22px #2e7a2699;
+    }
+    .calc-wrap button:hover {
+        background: #389730;
+    }
+    .calc-result {
+        margin-top: 28px;
+        font-size: 1.4em;
+        background: #144c0dbb;
+        padding: 15px 8px;
+        border-radius: 15px;
+        font-weight: bold;
+        min-height: 36px;
+    }
+    .bonus {
+        color: #ffd600;
+        text-shadow: 0 1px 10px #fff,0 2px 7px #888;
+        font-size: 1.03em;
+    }
+    </style>
+</head>
+<body>
+    <!-- Кнопка "назад" в виде камня -->
+    <a href="index.html" class="back-btn">
+      <img src="img/back.png" alt="Назад" class="back-img">
+    </a>
+
+    <div class="calc-wrap">
+        <h2>Калькулятор дохода курьера</h2>
+        <label>
+            Кладов в день:
+            <select id="perDay">
+                <script>
+                    for(let i=1;i<=50;i++)document.write(`<option value="${i}">${i}</option>`);
+                </script>
+            </select>
+        </label>
+        <label>
+            Дней в месяц:
+            <select id="perMonth">
+                <script>
+                    for(let i=1;i<=30;i++)document.write(`<option value="${i}">${i}</option>`);
+                </script>
+            </select>
+        </label>
+        <button onclick="calcCourier()">Посчитать</button>
+        <div id="result" class="calc-result"></div>
+    </div>
+
+    <script>
+    function calcCourier() {
+        const perDay = Number(document.getElementById('perDay').value);
+        const perMonth = Number(document.getElementById('perMonth').value);
+        const count = perDay * perMonth;
+        let money = count * 1100;
+        let bonus = 0;
+        let label = '';
+
+        if (count >= 500)      { bonus = 100000; label = '100 000 ₽'; }
+        else if (count >= 400) { bonus =  70000; label = '70 000 ₽'; }
+        else if (count >= 300) { bonus =  50000; label = '50 000 ₽'; }
+        else if (count >= 200) { bonus =  30000; label = '30 000 ₽'; }
+        else if (count >= 100) { bonus =  15000; label = '15 000 ₽'; }
+
+        let text = `Всего кладов: <b>${count}</b> <br>Ваш доход: <b>${money.toLocaleString('ru-RU')} ₽</b>`;
+
+        if(bonus){
+            text += `<br><span class="bonus">+ Премия ${label}</span><br><b>Итого: ${(money+bonus).toLocaleString('ru-RU')} ₽</b>`;
+        }
+        document.getElementById('result').innerHTML = text;
+    }
+    </script>
+</body>
+</html>
