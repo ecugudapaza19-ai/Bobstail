@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>В гостях у Боба</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Кнопки (только 4 кнопки с картинками) -->
+    <a href="#" class="btn btn1" id="siteBtn"><img src="img/btn1.png" alt="наш сайт"></a>
+    <a href="calc.html" class="btn btn2"><img src="img/btn2.png" alt="калькулятор курьера"></a>
+    <a href="about.html" class="btn btn3"><img src="img/btn3.png" alt="немного о нас"></a>
+    <a href="job.html" class="btn btn4"><img src="img/btn4.png" alt="устроиться на работу"></a>
+
+    <script>
+    document.getElementById('siteBtn').addEventListener('click', function(event) {
+        event.preventDefault();
+        if (confirm('ВНИМАНИЕ!\nВход на наш сайт возможен только с включённым VPN.\nПродолжить?')) {
+            window.location.href = 'https://boborganic.to/';
+        }
+    });
+    </script>
+</body>
+</html>
